@@ -50,10 +50,23 @@ namespace XmlUnit {
         public DiffResult Compare() {
             if (_diffResult == null) {
                 _diffResult = new DiffResult();
-                using (XmlReader controlReader = CreateXmlReader(controlInput))
-                using (XmlReader testReader = CreateXmlReader(testInput)) {
+                XmlReader controlReader, testReader;
+                controlReader = testReader = null;
+                try {
+                    controlReader = CreateXmlReader(controlInput);
+                    testReader = CreateXmlReader(testInput);
                     if (!controlInput.Equals(testInput)) {
                         Compare(_diffResult, controlReader, testReader);
+                    }
+                } finally {
+                    try {
+                        if (testReader != null) {
+                            testReader.Close();
+                        }
+                    } finally {
+                        if (controlReader != null) {
+                            controlReader.Close();
+                        }
                     }
                 }
             }
