@@ -192,4 +192,20 @@ public abstract class AbstractXpathEngineTests extends TestCase {
             // acceptable in the JAXP 1.2 case
         }
     }
+
+    // https://sourceforge.net/forum/forum.php?thread_id=3292605&forum_id=73274
+    public void testDefaultNamespace() throws Exception {
+        String t = "<a xmlns=\"http://www.acme.com\"><b c='cv'>bv</b></a>"; 
+ 
+        Document d = XMLUnit.buildControlDocument(t); 
+        HashMap m = new HashMap(); 
+        m.put("", "http://www.acme.com"); 
+        m.put("q", "http://www.acme.com"); 
+ 
+        NamespaceContext ctx = new SimpleNamespaceContext(m); 
+        XpathEngine engine = newXpathEngine(); 
+        engine.setNamespaceContext(ctx); 
+        // fails assertEquals("bv", engine.evaluate("//b", d));
+        assertEquals("bv", engine.evaluate("//q:b", d));
+    }
 }

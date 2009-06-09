@@ -925,7 +925,6 @@ public class test_DifferenceEngine extends TestCase implements DifferenceConstan
             + "</abc:XMLContent>"
             + "</abc:EventBody>"
             + "</abc:Message>";
-        listener.tracing = true;
         listenToDifferences(control, test);
         assertFalse(listener.different);
     }

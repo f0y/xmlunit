@@ -125,5 +125,53 @@ namespace XmlUnit.Tests {
             AssertExpectedResult(input1, input2, false);
         }
         
+        [Test] public void NamespaceAttributeDifferences() {
+            string control = "<?xml version = \"1.0\" encoding = \"UTF-8\"?>"
+                + "<ns0:Message xmlns:ns0 = \"http://mynamespace\">"
+                + "<ns0:EventHeader>"
+                + "<ns0:EventID>9999</ns0:EventID>"
+                + "<ns0:MessageID>1243409665297</ns0:MessageID>"
+                + "<ns0:MessageVersionID>1.0</ns0:MessageVersionID>"
+            + "<ns0:EventName>TEST-EVENT</ns0:EventName>"
+                + "<ns0:BWDomain>TEST</ns0:BWDomain>"
+                + "<ns0:DateTimeStamp>2009-01-01T12:00:00</ns0:DateTimeStamp>"
+                + "<ns0:SchemaPayloadRef>anything</ns0:SchemaPayloadRef>"
+                + "<ns0:MessageURI>anything</ns0:MessageURI>"
+                + "<ns0:ResendFlag>F</ns0:ResendFlag>"
+                + "</ns0:EventHeader>"
+                + "<ns0:EventBody>"
+                + "<ns0:XMLContent>"
+                + "<xyz:root xmlns:xyz=\"http://test.com/xyz\">"
+                + "<xyz:test1>A</xyz:test1>"
+                + "<xyz:test2>B</xyz:test2>"
+                + "</xyz:root>"
+                + "</ns0:XMLContent>"
+                + "</ns0:EventBody>"
+                + "</ns0:Message>";
+            string test =
+                "<abc:Message xmlns:abc=\"http://mynamespace\" xmlns:xyz=\"http://test.com/xyz\">"
+                + "<abc:EventHeader>"
+                + "<abc:EventID>9999</abc:EventID>"
+                + "<abc:MessageID>1243409665297</abc:MessageID>"
+                + "<abc:MessageVersionID>1.0</abc:MessageVersionID>"
+                + "<abc:EventName>TEST-EVENT</abc:EventName>"
+                + "<abc:BWDomain>TEST</abc:BWDomain>"
+                + "<abc:DateTimeStamp>2009-01-01T12:00:00</abc:DateTimeStamp>"
+                + "<abc:SchemaPayloadRef>anything</abc:SchemaPayloadRef>"
+                + "<abc:MessageURI>anything</abc:MessageURI>"
+                + "<abc:ResendFlag>F</abc:ResendFlag>"
+                + "</abc:EventHeader>"
+                + "<abc:EventBody>"
+                + "<abc:XMLContent>"
+                + "<xyz:root>"
+                + "<xyz:test1>A</xyz:test1>"
+                + "<xyz:test2>B</xyz:test2>"
+                + "</xyz:root>"
+                + "</abc:XMLContent>"
+                + "</abc:EventBody>"
+                + "</abc:Message>";
+            AssertExpectedResult(control, test, true);
+        }
+
     }
 }
