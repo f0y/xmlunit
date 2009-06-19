@@ -908,6 +908,5 @@ public class test_Diff extends TestCase{
                                         ElementNameAndAttributeQualifier());
         assertTrue(diff.toString(), diff.similar());
     }
-
 }
 
