@@ -186,7 +186,7 @@ public class test_Diff extends TestCase{
         Diff diff = buildDiff("<same except=\"this\">pass</same>", "<same>pass</same>");
         assertEquals("should not be identical", false, diff.identical());
         assertEquals("and should not be similar", false, diff.similar());
-    }    
+    }
 
     public void testAttributesInReverseOrder() throws Exception {
         Diff diff = buildDiff("<same zzz=\"qwerty\" aaa=\"uiop\">pass</same>",
@@ -198,7 +198,7 @@ public class test_Diff extends TestCase{
         assertEquals(diff.toString() + ": but should be similar",
                      true, diff.similar());
     }
-    
+
     public void testDiffStringWithAttributes() throws Exception {
         final String fruitBat = "<bat type=\"fruit\"/>",
             longEaredBat = "<bat type=\"longeared\"/>";
@@ -209,7 +209,7 @@ public class test_Diff extends TestCase{
                      + "<bat type=\"fruit\"...> at /bat[1]/@type to <bat type=\"longeared\"...> at /bat[1]/@type\n",
                      diff.toString());
     }
-    
+
     public void testXMLWithDTD() throws Exception {
         String aDTDpart = "<!DOCTYPE test ["
             + "<!ELEMENT assertion EMPTY>"
@@ -224,7 +224,7 @@ public class test_Diff extends TestCase{
         Diff diff = buildDiff(xmlWithDTD, xmlWithoutDTD);
         assertTrue("similar. " + diff.toString(), diff.similar());
         assertTrue("not identical. " + diff.toString(), !diff.identical());
-        
+
         File tempDtdFile = File.createTempFile(getName(), "dtd");
         tempDtdFile.deleteOnExit();
         FileWriter dtdWriter = new FileWriter(tempDtdFile);
@@ -235,17 +235,17 @@ public class test_Diff extends TestCase{
                 + xmlWithoutDTD;
             diff = buildDiff(xmlWithDTD, xmlWithExternalDTD);
             assertTrue("similar again. " + diff.toString(), diff.similar());
-            assertTrue("not identical again. " + diff.toString(), !diff.identical());             
+            assertTrue("not identical again. " + diff.toString(), !diff.identical());
         } finally {
             tempDtdFile.delete();
         }
 
         String anotherDTD = aDTDpart 
-            + "<!ELEMENT comment (ANY)>" + "]>";            
+            + "<!ELEMENT comment (ANY)>" + "]>";
         String xmlWithAnotherDTD = anotherDTD + xmlWithoutDTD;
         diff = buildDiff(xmlWithDTD, xmlWithAnotherDTD);
         assertTrue("similar. " + diff.toString(), diff.similar());
-        assertTrue("amd identical as DTD content is not compared. " + diff.toString(), diff.identical());        
+        assertTrue("amd identical as DTD content is not compared. " + diff.toString(), diff.identical());
     }
 
     /**
@@ -349,7 +349,7 @@ public class test_Diff extends TestCase{
         assertTrue("c-"+reverseDiff.toString(), reverseDiff.similar());
         assertTrue("d-"+reverseDiff.toString(), !reverseDiff.identical());
     }
-    
+
     public void testOverrideDifferenceListener() throws Exception {
         String control = "<vehicles><car colour=\"white\">ford fiesta</car>"
             +"<car colour=\"red\">citroen xsara</car></vehicles>";
@@ -358,7 +358,7 @@ public class test_Diff extends TestCase{
         Diff diff = buildDiff(control, test);
         assertTrue("initially " + diff.toString(), 
                    !diff.similar());
-        
+
         Diff diffWithIdenticalOverride = buildDiff(control, test);
         diffWithIdenticalOverride.overrideDifferenceListener(
                                                              new OverrideDifferenceListener(
@@ -366,7 +366,7 @@ public class test_Diff extends TestCase{
         assertTrue("now identical" 
                    + diffWithIdenticalOverride.toString(),
                    diffWithIdenticalOverride.identical());
-        
+
         Diff diffWithSimilarOverride = buildDiff(control, test);
         diffWithSimilarOverride.overrideDifferenceListener(
                                                            new OverrideDifferenceListener(
@@ -377,7 +377,7 @@ public class test_Diff extends TestCase{
         assertTrue("but still similar" 
                    + diffWithSimilarOverride.toString(),
                    diffWithSimilarOverride.similar());
-        
+
         Diff diffWithOverride = buildDiff(control, test);
         diffWithOverride.overrideDifferenceListener(
                                                     new OverrideDifferenceListener(
@@ -386,7 +386,7 @@ public class test_Diff extends TestCase{
                    + diffWithOverride.toString(),
                    !diffWithOverride.similar());
     }
-    
+
     public void testNamespacedAttributes() throws Exception {
         FileReader control = new FileReader(test_Constants.BASEDIR
                                             + "/tests/etc/controlNamespaces.xml");
@@ -466,7 +466,7 @@ public class test_Diff extends TestCase{
         assertFalse("should not be identical: " + diff.toString(), diff.identical());
         assertTrue("should be similar: " + diff.toString(), diff.similar());
     }
-        
+
     // defect raised by Kevin Krouse Jan 2003
     public void testXMLNSNumberOfAttributes() throws Exception {
         Diff diff = buildDiff("<root xmlns=\"qwerty\"><node/></root>", 
@@ -474,7 +474,7 @@ public class test_Diff extends TestCase{
         assertTrue(diff.toString(), diff.similar());
         assertFalse(diff.toString(), diff.identical());
     }
-        
+
     protected Diff buildDiff(Document control, Document test) {
         return new Diff(control, test);
     }
@@ -512,7 +512,7 @@ public class test_Diff extends TestCase{
         public void skippedComparison(Node control, Node test) {
         }
     }
-    
+
     private class ExpectedDifferenceListener implements DifferenceListener {
         private final Set expectedIds;
         private ExpectedDifferenceListener(int expectedIdValue) {
@@ -534,14 +534,14 @@ public class test_Diff extends TestCase{
         protected void examineDifferenceContents(Difference difference) {
         }
     }
-        
+
     private abstract class ExaminingExpectedDifferenceListener extends ExpectedDifferenceListener {
         private ExaminingExpectedDifferenceListener(int expectedIdValue) {
             super(expectedIdValue);
         }
         protected abstract void examineDifferenceContents(Difference difference) ;
     } 
-                        
+
 
     public void testIssue1189681() throws Exception {
         String left = "" +
@@ -717,21 +717,21 @@ public class test_Diff extends TestCase{
      * @see http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1779701&amp;group_id=23187&amp;atid=377768
      */
     public void testWhitespaceAndNamespaces() throws Exception {
-	String control =
-	    "<env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>"
-	    + "\r\n <env:Header/>"
-	    + "\r\n </env:Envelope>";
-	String test =
-	    "<env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>"
-	    + "<env:Header/>"
-	    + "</env:Envelope>";
-	XMLUnit.setIgnoreWhitespace(true);
-	try {
-	    Diff diff = buildDiff(control, test);
-	    assertTrue(diff.toString(), diff.identical());
-	} finally {
-	    XMLUnit.setIgnoreWhitespace(false);
-	}
+        String control =
+            "<env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>"
+            + "\r\n <env:Header/>"
+            + "\r\n </env:Envelope>";
+        String test =
+            "<env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>"
+            + "<env:Header/>"
+            + "</env:Envelope>";
+        XMLUnit.setIgnoreWhitespace(true);
+        try {
+            Diff diff = buildDiff(control, test);
+            assertTrue(diff.toString(), diff.identical());
+        } finally {
+            XMLUnit.setIgnoreWhitespace(false);
+        }
     }
 
     /**
@@ -739,15 +739,15 @@ public class test_Diff extends TestCase{
      * @see http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1863632&amp;group_id=23187&amp;atid=377768
      */
     public void testBasicWhitespaceHandling() throws Exception {
-	String control = "<a><b/></a>";
-	String test = "<a>\r\n  <b/>\r\n</a>";
-	XMLUnit.setIgnoreWhitespace(true);
-	try {
-	    Diff diff = buildDiff(control, test);
-	    assertTrue(diff.toString(), diff.identical());
-	} finally {
-	    XMLUnit.setIgnoreWhitespace(false);
-	}
+        String control = "<a><b/></a>";
+        String test = "<a>\r\n  <b/>\r\n</a>";
+        XMLUnit.setIgnoreWhitespace(true);
+        try {
+            Diff diff = buildDiff(control, test);
+            assertTrue(diff.toString(), diff.identical());
+        } finally {
+            XMLUnit.setIgnoreWhitespace(false);
+        }
     }
 
     public void testUpgradingOfRecoverableDifference() throws Exception {
@@ -855,7 +855,7 @@ public class test_Diff extends TestCase{
             +" </Name>"
             +" </Person>"
             +"</Data>";
-        
+
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
         try {
@@ -908,5 +908,6 @@ public class test_Diff extends TestCase{
                                         ElementNameAndAttributeQualifier());
         assertTrue(diff.toString(), diff.similar());
     }
+
 }
 
