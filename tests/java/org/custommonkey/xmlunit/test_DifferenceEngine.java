@@ -929,6 +929,41 @@ public class test_DifferenceEngine extends TestCase implements DifferenceConstan
         assertFalse(listener.different);
     }
 
+
+    /**
+     * @see https://sourceforge.net/forum/message.php?msg_id=4817456
+     */
+    public void testForumMessage4817456() throws Exception {
+        String control = "<doc>"
+            + "<id>123</id>"
+            + "<remarks>a</remarks>"
+            + "<remarks>b</remarks>"
+            + "<remarks>c</remarks>"
+            + "<remarks>d</remarks>"
+            + "<others>1</others>"
+            + "<others>2</others>"
+            + "<others>3</others>"
+            + "</doc>";
+        String test = "<doc>"
+            + "<id>123</id>"
+            + "<remarks>a</remarks>"
+            + "<remarks>b</remarks>"
+            + "<remarks>c</remarks>"
+            + "<remarks>d</remarks>"
+            + "<remarks>e</remarks>"
+            + "<others>2</others>"
+            + "<others>3</others>"
+            + "</doc>";
+
+        Document controlDoc = XMLUnit.buildControlDocument(control);
+        Document testDoc = XMLUnit.buildTestDocument(test);
+        engine.compare(controlDoc, testDoc, listener,
+                       new ElementNameAndTextQualifier());
+        assertTrue(listener.different);
+        assertEquals(DifferenceConstants.ELEMENT_TAG_NAME_ID,
+                     listener.comparingWhat);
+    }
+
     private void listenToDifferences(String control, String test)
         throws SAXException, IOException {
         Document controlDoc = XMLUnit.buildControlDocument(control);
