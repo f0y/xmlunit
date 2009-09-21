@@ -37,7 +37,7 @@ POSSIBILITY OF SUCH DAMAGE.
   <property file="build.properties"/>
 
   <!-- Version -->
-  <property name="xmlunit.version" value="1.3alpha"/>
+  <property name="xmlunit.version" value="1.4alpha"/>
 
   <!-- some locations -->
   <property name="src.dir" value="src"/>
@@ -264,7 +264,7 @@ POSSIBILITY OF SUCH DAMAGE.
   </target>
 
   <target name="dist"
-    depends="clean,bindist,srcdist,compile-userguide-examples"
+    depends="bindist,srcdist,compile-userguide-examples"
     description="creates the distribution files">
     <checksum algorithm="md5">
       <fileset dir="${dist.dir}">
