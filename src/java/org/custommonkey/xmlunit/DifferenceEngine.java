@@ -1,6 +1,6 @@
 /*
 ******************************************************************
-Copyright (c) 2001-2009, Jeff Martin, Tim Bacon
+Copyright (c) 2001-2013, Jeff Martin, Tim Bacon
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -704,6 +704,18 @@ public class DifferenceEngine implements DifferenceConstants {
     }
 
     /**
+     * @param attr
+     * @return true if the attribute is an XML Schema Instance
+     * namespace attribute XMLUnit treats in a special way.
+     */
+    private boolean isXMLSchemaTypeAttribute(Attr attr) {
+        return XMLConstants
+            .W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(attr.getNamespaceURI())
+            && XMLConstants.W3C_XML_SCHEMA_INSTANCE_TYPE_ATTR
+                .equals(attr.getLocalName());
+    }
+
+    /**
      * Compare two attributes
      * @param control
      * @param test
@@ -717,13 +729,39 @@ public class DifferenceEngine implements DifferenceConstants {
         
         compare(control.getPrefix(), test.getPrefix(), control, test, 
                 listener, NAMESPACE_PREFIX);
-                
-        compare(control.getValue(), test.getValue(), control, test,
-                listener, ATTR_VALUE);
-
+        if (isXMLSchemaTypeAttribute(control)
+            && isXMLSchemaTypeAttribute(test)) {
+            compareXMLSchemaTypeAttributeValues(control, test, listener);
+        } else {
+            compare(control.getValue(), test.getValue(), control, test,
+                    listener, ATTR_VALUE);
+        }
         compare(control.getSpecified() ? Boolean.TRUE : Boolean.FALSE,
                 test.getSpecified() ? Boolean.TRUE : Boolean.FALSE,
                 control, test, listener, ATTR_VALUE_EXPLICITLY_SPECIFIED);
+    }
+
+    private void compareXMLSchemaTypeAttributeValues(Attr control, Attr test,
+                                                     DifferenceListener listener)
+        throws DifferenceFoundException {
+        String controlValue = control.getValue();
+        String testValue = test.getValue();
+
+        String controlLocal = controlValue;
+        String controlPrefix = "";
+        String testLocal = testValue;
+        String testPrefix = "";
+        int controlColon = controlValue.indexOf(":");
+        if (controlColon > 0) {
+            controlLocal = controlValue.substring(controlColon);
+            controlPrefix = controlValue.substring(0, controlColon);
+        }
+        int testColon = testValue.indexOf(":");
+        if (testColon > 0) {
+            testLocal = testValue.substring(testColon);
+            testPrefix = testValue.substring(0, testColon);
+        }
+        compare(controlLocal, testLocal, control, test, listener, ATTR_VALUE);
     }
 
     /**

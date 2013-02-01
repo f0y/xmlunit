@@ -1,6 +1,6 @@
 /*
 ******************************************************************
-Copyright (c) 2001-2007 Jeff Martin, Tim Bacon
+Copyright (c) 2001-2013 Jeff Martin, Tim Bacon
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -157,4 +157,10 @@ public interface XMLConstants {
      */
     String W3C_XML_SCHEMA_INSTANCE_NO_NAMESPACE_SCHEMA_LOCATION_ATTR
         = "noNamespaceSchemaLocation";
+
+    /**
+     * "type"
+     */
+    public static final String W3C_XML_SCHEMA_INSTANCE_TYPE_ATTR
+        = "type";
 }
