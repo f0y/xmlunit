@@ -761,10 +761,10 @@ public class DifferenceEngine implements DifferenceConstants {
             testLocal = testValue.substring(testColon + 1);
             testPrefix = testValue.substring(0, testColon);
         }
-        compare(controlLocal, testLocal, control, test, listener, ATTR_VALUE);
-        compare(findNamespaceURIForPrefix(control, controlPrefix),
-                findNamespaceURIForPrefix(test, testPrefix), control, test,
-                listener, ATTR_VALUE);
+        compare("{" + findNamespaceURIForPrefix(control, controlPrefix) + "}"
+                + controlLocal,
+                "{" + findNamespaceURIForPrefix(test, testPrefix) + "}"
+                + testLocal, control, test, listener, ATTR_VALUE);
     }
 
     /**
