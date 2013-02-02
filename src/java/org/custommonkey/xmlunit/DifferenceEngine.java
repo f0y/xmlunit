@@ -752,16 +752,19 @@ public class DifferenceEngine implements DifferenceConstants {
         String testLocal = testValue;
         String testPrefix = "";
         int controlColon = controlValue.indexOf(":");
-        if (controlColon > 0) {
-            controlLocal = controlValue.substring(controlColon);
+        if (controlColon >= 0 && controlColon < controlValue.length() - 1) {
+            controlLocal = controlValue.substring(controlColon + 1);
             controlPrefix = controlValue.substring(0, controlColon);
         }
         int testColon = testValue.indexOf(":");
-        if (testColon > 0) {
-            testLocal = testValue.substring(testColon);
+        if (testColon >= 0 && testColon < testValue.length() - 1) {
+            testLocal = testValue.substring(testColon + 1);
             testPrefix = testValue.substring(0, testColon);
         }
         compare(controlLocal, testLocal, control, test, listener, ATTR_VALUE);
+        compare(findNamespaceURIForPrefix(control, controlPrefix),
+                findNamespaceURIForPrefix(test, testPrefix), control, test,
+                listener, ATTR_VALUE);
     }
 
     /**
@@ -976,6 +979,34 @@ public class DifferenceEngine implements DifferenceConstants {
             }
         }
         return changed ? sb.toString() : orig;
+    }
+
+    /**
+     * Try to find the namespace URI that is mapped to the given
+     * prefix at the given node.
+     */
+    private String findNamespaceURIForPrefix(Node onNode, String prefix) {
+        if (onNode != null && onNode instanceof Attr) {
+            onNode = ((Attr) onNode).getOwnerElement();
+        }
+        while (onNode != null && onNode.getNodeType() != Node.ELEMENT_NODE) {
+            onNode = onNode.getParentNode();
+        }
+        if (onNode == null) {
+            return null;
+        }
+
+        NamedNodeMap attrs = onNode.getAttributes();
+        Attr attr = null;
+        if (prefix == null || "".equals(prefix)) {
+            attr = (Attr) attrs.getNamedItem(XMLConstants.XMLNS_PREFIX);
+        } else {
+            attr = (Attr) attrs.getNamedItemNS(XMLConstants.XMLNS_ATTRIBUTE_URI, prefix);
+        }
+        if (attr != null) {
+            return attr.getValue();
+        }
+        return findNamespaceURIForPrefix(onNode.getParentNode(), prefix);
     }
 
     /**

@@ -53,6 +53,11 @@ public interface XMLConstants {
     public static final String XMLNS_PREFIX = "xmlns";
 
     /**
+     * xmlns URI
+     */
+    public static final String XMLNS_ATTRIBUTE_URI = "http://www.w3.org/2000/xmlns/";
+
+    /**
      * "&lt;"
      */
     public static final String OPEN_START_NODE = "<";
