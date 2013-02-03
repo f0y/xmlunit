@@ -98,7 +98,7 @@ POSSIBILITY OF SUCH DAMAGE.
   <target name="-users-guide-html-xsltproc"
           depends="-xsltproc-available?,-users-guide-html-pre"
           if="run xsltproc">
-    <exec command="${xsltproc}" failonerror="true">
+    <exec executable="${xsltproc}" failonerror="true">
       <arg value="-o"/>
       <!-- xsltproc needs the trailing slash to work properly -->
       <arg value="${html.dir}/"/>
@@ -117,7 +117,6 @@ POSSIBILITY OF SUCH DAMAGE.
           depends="-users-guide-html-trax,-users-guide-html-xsltproc"
           unless="HTML is up-to-date"
           description="Creates HTML version of the User's Guide">
-    <copy file="${src.dir}/site/xmlunit.png" toDir="${html.dir}"/>
   </target>
 
   <target name="-check-os">
@@ -159,7 +158,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <target name="users-guide-pdf" depends="-define-dblatex"
     description="Creates the PDF version of the User's Guide">
-    <copy file="${src.dir}/site/xmlunit.png" toDir="${src.userguide.dir}"/>
     <dblatex sourcefile="${src.userguide.dir}/${user.guide}.xml"/>
     <move file="${src.userguide.dir}/${user.guide}.pdf"
       todir="${userguide.docs.dir}"/>

@@ -34,12 +34,7 @@ POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <article>
-  <title>XMLUnit Java User's Guide
-    <inlinemediaobject><imageobject>
-        <imagedata fileref="xmlunit.png" width="331" depth="100"
-          valign="middle" format="PNG"/>
-      </imageobject></inlinemediaobject>
-  </title>
+  <title>XMLUnit Java User's Guide</title>
   <articleinfo>
     <authorgroup>
       <author>
