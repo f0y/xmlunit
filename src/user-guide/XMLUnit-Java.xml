@@ -3639,7 +3639,7 @@ class MyNodeTester implements NodeTester {
           <listitem>
             <literal>XMLTestCase</literal>'s and <literal>XMLAssert</literal>'s
             <literal>assertXpathsEqual</literal> methods threw an
-            exception at least one XPath matched an attribute.  <ulink
+            exception when at least one XPath matched an attribute.  <ulink
             url="https://sourceforge.net/tracker/?func=detail&amp;aid=3290264&amp;group_id=23187&amp;atid=377768">Issue 377768</ulink>.
           </listitem>
         </itemizedlist>
