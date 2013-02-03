@@ -77,6 +77,7 @@
 
   <target name="users-guide-pdf" depends="-define-dblatex"
     description="Creates the PDF version of the User's Guide">
+    <copy file="${src.dir}/site/xmlunit.png" toDir="${src.userguide.dir}"/>
     <dblatex sourcefile="${src.userguide.dir}/${user.guide}.xml"/>
     <move file="${src.userguide.dir}/${user.guide}.pdf"
       todir="${userguide.docs.dir}"/>
