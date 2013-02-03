@@ -2862,8 +2862,10 @@ boolean isValid = v.isSchemaValid();
       (<literal>String</literal>) prefixes as keys and
       (<literal>String</literal>) namespace URIs as values.</para>
 
-      <para>The empty string is used as prefix for the default
-      namespace of a document.</para>
+      <para>Note there is nothing like a default namespace in XPath
+      selectors.  If you are using namespaces in your XPath, all
+      namespaces need a prefix (of length greater than zero).  This
+      is independent of the prefixes used in your document.</para>
 
       <para>The following example is taken from XMLUnit's own tests.
       It demonstrates that the namespace prefix of the document under
