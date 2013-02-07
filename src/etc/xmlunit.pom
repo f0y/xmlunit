@@ -56,6 +56,7 @@ POSSIBILITY OF SUCH DAMAGE.
   </licenses>
   <scm>
     <url>http://xmlunit.svn.sourceforge.net/viewvc/xmlunit/</url>
+    <connection>scm:svn:https://xmlunit.svn.sourceforge.net/svnroot/xmlunit/branches/xmlunit-1.x</connection>
   </scm>
   <dependencies>
     <dependency>
@@ -65,4 +66,13 @@ POSSIBILITY OF SUCH DAMAGE.
       <optional>true</optional>
     </dependency>
   </dependencies>
+  <!-- Personally I'm not fond of the developers section but Sonatype's OSSRH
+       requires it -->
+  <developers>
+    <developer>
+      <id>bodewig</id>
+      <name>Stefan Bodewig</name>
+      <email>stefan.bodewig@freenet dot de</email>
+    </developer>
+  </developers>
 </project>
