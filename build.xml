@@ -276,6 +276,14 @@ POSSIBILITY OF SUCH DAMAGE.
         <include name="*.zip"/>
       </fileset>
     </checksum>
+    <checksum algorithm="md5">
+      <fileset dir="${lib.dir}"/>
+    </checksum>
+    <checksum algorithm="sha1">
+      <fileset dir="${lib.dir}">
+        <exclude name="*.md5"/>
+      </fileset>
+    </checksum>
   </target>
 
   <target name="compile-userguide-examples" depends="compile">
