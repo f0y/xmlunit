@@ -63,7 +63,7 @@ public class test_DetailedDiff extends test_Diff {
 
     private void assertExpectedDifferencesFirstForecastControl(List differences,
                                                                DetailedDiff detailedDiff) {
-        assertEquals("size: " + detailedDiff, 5, differences.size());
+        assertEquals("size: " + detailedDiff, 7, differences.size());
         assertEquals("first: " + detailedDiff,
                      DifferenceConstants.ELEMENT_NUM_ATTRIBUTES, differences.get(0));
         assertEquals("second: " + detailedDiff,
@@ -74,6 +74,10 @@ public class test_DetailedDiff extends test_Diff {
                      DifferenceConstants.ATTR_SEQUENCE, differences.get(3));
         assertEquals("fifth: " + detailedDiff,
                      DifferenceConstants.HAS_CHILD_NODES, differences.get(4));
+        assertEquals("sixth: " + detailedDiff,
+                     DifferenceConstants.CHILD_NODELIST_LENGTH, differences.get(5));
+        assertEquals("seventh: " + detailedDiff,
+                     DifferenceConstants.CHILD_NODE_NOT_FOUND, differences.get(6));
     }
 
     public void testAllDifferencesSecondForecastControl() throws Exception {
@@ -82,7 +86,7 @@ public class test_DetailedDiff extends test_Diff {
 
         List differences = detailedDiff.getAllDifferences();
 
-        assertEquals("size: " + detailedDiff, 5, differences.size());
+        assertEquals("size: " + detailedDiff, 7, differences.size());
         assertEquals("first: " + detailedDiff,
                      DifferenceConstants.ELEMENT_NUM_ATTRIBUTES, differences.get(0));
         assertEquals("second: " + detailedDiff,
@@ -94,6 +98,10 @@ public class test_DetailedDiff extends test_Diff {
                      differences.get(3));
         assertEquals("fifth: " + detailedDiff,
                      DifferenceConstants.HAS_CHILD_NODES, differences.get(4));
+        assertEquals("sixth: " + detailedDiff,
+                     DifferenceConstants.CHILD_NODELIST_LENGTH, differences.get(5));
+        assertEquals("seventy: " + detailedDiff,
+                     DifferenceConstants.CHILD_NODE_NOT_FOUND, differences.get(6));
     }
 
     public void testPrototypeIsADetailedDiff() throws Exception {
@@ -116,15 +124,18 @@ public class test_DetailedDiff extends test_Diff {
                                                                            new InputSource(new FileReader(test))) );
 
         List l = differencesWithWhitespace.getAllDifferences();
-        int unmatchedNodes = 0;
+        int unmatchedNodeDiffs = 0;
+        int hasChildNodeDiffs = 0;
         for (Iterator iter = l.iterator(); iter.hasNext();) {
             Difference d = (Difference) iter.next();
             if (d.getId() == DifferenceConstants.CHILD_NODE_NOT_FOUND_ID) {
-                unmatchedNodes++;
+                unmatchedNodeDiffs++;
+            } else if (d.getId() == DifferenceConstants.HAS_CHILD_NODES_ID) {
+                hasChildNodeDiffs++;
             }
         }
         
-        assertEquals(1402 + unmatchedNodes,
+        assertEquals(1402 + hasChildNodeDiffs + unmatchedNodeDiffs,
                      differencesWithWhitespace.getAllDifferences().size()); 
 
         try {
@@ -133,14 +144,17 @@ public class test_DetailedDiff extends test_Diff {
                 new Diff(new FileReader(control), new FileReader(test));
             DetailedDiff detailedDiff = new DetailedDiff(prototype);
             List differences = detailedDiff.getAllDifferences();
-            unmatchedNodes = 0;
+            unmatchedNodeDiffs = 0;
+            hasChildNodeDiffs = 0;
             for (Iterator iter = differences.iterator(); iter.hasNext();) {
                 Difference d = (Difference) iter.next();
                 if (d.getId() == DifferenceConstants.CHILD_NODE_NOT_FOUND_ID) {
-                    unmatchedNodes++;
+                    unmatchedNodeDiffs++;
+                } else if (d.getId() == DifferenceConstants.HAS_CHILD_NODES_ID) {
+                    hasChildNodeDiffs++;
                 }
             }
-            assertEquals(40 + unmatchedNodes, differences.size()); 
+            assertEquals(40 + hasChildNodeDiffs + unmatchedNodeDiffs, differences.size()); 
 
             SimpleXpathEngine xpathEngine = new SimpleXpathEngine();
             Document controlDoc =

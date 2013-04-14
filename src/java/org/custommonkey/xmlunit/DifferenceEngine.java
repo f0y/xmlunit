@@ -320,7 +320,7 @@ public class DifferenceEngine implements DifferenceConstants {
     protected void compareNodeChildren(Node control, Node test,
                                        DifferenceListener listener, ElementQualifier elementQualifier) 
         throws DifferenceFoundException {
-        if (control.hasChildNodes() && test.hasChildNodes()) {
+        if (control.hasChildNodes() || test.hasChildNodes()) {
             List controlChildren = nodeList2List(control.getChildNodes());
             List testChildren = nodeList2List(test.getChildNodes());
 
@@ -328,8 +328,19 @@ public class DifferenceEngine implements DifferenceConstants {
             Integer testLength = new Integer(testChildren.size());
             compare(controlLength, testLength, control, test, listener,
                     CHILD_NODELIST_LENGTH);
-            compareNodeList(controlChildren, testChildren,
-                            controlLength.intValue(), listener, elementQualifier);
+            
+            if (controlLength.intValue() == 0) {
+                for (Iterator iter = testChildren.iterator(); iter.hasNext();) {
+                    missingNode(null, (Node) iter.next(), listener);
+                }
+            } else if (testLength.intValue() == 0) {
+                for (Iterator iter = controlChildren.iterator(); iter.hasNext();) {
+                    missingNode((Node) iter.next(), null, listener);
+                }
+             } else {
+                compareNodeList(controlChildren, testChildren,
+                                controlLength.intValue(), listener, elementQualifier);
+            }
         }
     }
 

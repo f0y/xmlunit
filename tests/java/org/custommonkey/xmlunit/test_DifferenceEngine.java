@@ -646,15 +646,15 @@ public class test_DifferenceEngine extends TestCase implements DifferenceConstan
         String test = "<stuff><item id=\"2\"/></stuff>";
         listenToDifferences(control, test);
         assertEquals("15th difference type",
-                     DifferenceEngine.HAS_CHILD_NODES_ID,
+                     DifferenceEngine.CHILD_NODE_NOT_FOUND_ID,
                      listener.comparingWhat);
-        assertEquals("15th difference control value", "true",
+        assertEquals("15th difference control value", "thing",
                      listener.expected);
-        assertEquals("15th difference test value", "false",
+        assertEquals("15th difference test value", "null",
                      listener.actual);
-        assertEquals("15th control xpath", "/stuff[1]/item[1]", 
+        assertEquals("15th control xpath", "/stuff[1]/item[1]/thing[1]", 
                      listener.controlXpath);
-        assertEquals("15th test xpath", "/stuff[1]/item[1]", 
+        assertNull("15th test xpath should be null but is " + listener.testXpath, 
                      listener.testXpath);
     }
 
