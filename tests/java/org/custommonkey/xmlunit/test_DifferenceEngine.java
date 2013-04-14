@@ -1,6 +1,6 @@
 /*
 ******************************************************************
-Copyright (c) 2001-2008, Jeff Martin, Tim Bacon
+Copyright (c) 2001-2008,2013 Jeff Martin, Tim Bacon
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -857,8 +857,9 @@ public class test_DifferenceEngine extends TestCase implements DifferenceConstan
         d.compare(control, test, listener, null);
         // NODE_TYPE (not null), NODE_TYPE(Element), NAMESPACE_URI(none),
         // NAMESPACE_PREFIX(none), ELEMENT_TAG_NAME(foo),
-        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false)
-        assertEquals(7, count[0]);
+        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false),
+        // CHILD_NODELIST_LENGTH(0)
+        assertEquals(8, count[0]);
     }
 
     public void testMatchTrackerSetViaSetter() throws Exception {
@@ -873,8 +874,9 @@ public class test_DifferenceEngine extends TestCase implements DifferenceConstan
         engine.compare(control, test, listener, null);
         // NODE_TYPE (not null), NODE_TYPE(Element), NAMESPACE_URI(none),
         // NAMESPACE_PREFIX(none), ELEMENT_TAG_NAME(foo),
-        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false)
-        assertEquals(7, count[0]);
+        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false),
+        // CHILD_NODELIST_LENGTH(0)
+        assertEquals(8, count[0]);
     }
 
     /**

@@ -786,8 +786,9 @@ public class test_Diff extends TestCase{
         // 
         // NODE_TYPE(Element), NAMESPACE_URI(none),
         // NAMESPACE_PREFIX(none), ELEMENT_TAG_NAME(foo),
-        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false)
-        assertEquals(12, count[0]);
+        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false),
+        // CHILD_NODELIST_LENGTH(0)
+        assertEquals(13, count[0]);
     }
 
     public void testMatchTrackerSetViaEngine() throws Exception {
@@ -812,8 +813,9 @@ public class test_Diff extends TestCase{
         // 
         // NODE_TYPE(Element), NAMESPACE_URI(none),
         // NAMESPACE_PREFIX(none), ELEMENT_TAG_NAME(foo),
-        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false)
-        assertEquals(12, count[0]);
+        // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false),
+        // CHILD_NODELIST_LENGTH(0)
+        assertEquals(13, count[0]);
     }
 
     public void testMatchTrackerSetViaOverrideOnEngine() throws Exception {
@@ -840,7 +842,8 @@ public class test_Diff extends TestCase{
         // NODE_TYPE(Element), NAMESPACE_URI(none),
         // NAMESPACE_PREFIX(none), ELEMENT_TAG_NAME(foo),
         // ELEMENT_NUM_ATTRIBUTE(none), HAS_CHILD_NODES(false)
-        assertEquals(12, count[0]);
+        // CHILD_NODELIST_LENGTH(0)
+        assertEquals(13, count[0]);
     }
 
     public void testCDATAAndIgnoreWhitespace() throws Exception {
