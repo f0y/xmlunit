@@ -1,6 +1,6 @@
 /*
 ******************************************************************
-Copyright (c) 2008, Jeff Martin, Tim Bacon
+Copyright (c) 2008,2013 Jeff Martin, Tim Bacon
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -116,8 +116,8 @@ public class RecursiveElementNameAndTextQualifier implements ElementQualifier {
 
             int i, j;
             for (i = j = 0; i < cNodes && j < tNodes; i++, j++) {
-                Node testNode = testNodes.item(i);
-                Node controlNode = controlNodes.item(j);
+                Node controlNode = controlNodes.item(i);
+                Node testNode = testNodes.item(j);
 
                 // check if both node are same type
                 if (controlNode.getNodeType() != testNode.getNodeType()) {
