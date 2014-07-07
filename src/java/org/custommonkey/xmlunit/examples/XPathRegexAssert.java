@@ -47,7 +47,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import junit.framework.Assert;
+import org.testng.Assert;
 
 /**
  * Example demonstrating how to use the XPath API of XMLUnit in
@@ -64,7 +64,7 @@ public class XPathRegexAssert {
         throws XpathException {
         XpathEngine engine = XMLUnit.newXpathEngine();
         String value = engine.evaluate(xpath, doc);
-        Assert.assertTrue(message, value.matches(regex));
+        Assert.assertTrue(value.matches(regex), message);
     }
 
     public static void assertXPathMatches(String message, String regex,

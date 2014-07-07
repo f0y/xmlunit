@@ -44,6 +44,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
+import org.testng.Assert;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -339,7 +340,7 @@ public class Validator extends DefaultHandler implements ErrorHandler {
      */
     public void assertIsValid(){
         if(!isValid()){
-            junit.framework.Assert.fail(messages.toString());
+          Assert.fail(messages.toString());
         }
     }
 

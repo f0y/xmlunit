@@ -45,7 +45,7 @@ import java.io.StringReader;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import junit.framework.Assert;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,6 +53,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import static org.testng.AssertJUnit.*;
 
 
 /**
@@ -100,7 +101,7 @@ import org.xml.sax.SAXException;
  * @see Diff#identical()
  * <br />Examples and more at <a href="http://xmlunit.sourceforge.net"/>xmlunit.sourceforge.net</a>
  */
-public class XMLAssert extends Assert implements XSLTConstants {
+public class XMLAssert implements XSLTConstants {
     
     protected XMLAssert(){
         super();
