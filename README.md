@@ -1,5 +1,13 @@
-XMLUnit version 1.0
-===================
+
+### This is not an official nor maintained mirror of xmlunit (see http://xmlunit.sourceforge.net/ instead)
+
+__Differences:__
+
+* Branch `xmlunit-1.x` is identical to official svn branch
+
+* Junit3 is removed in branch `testng`  
+
+##### XMLUnit version 1.0
 
 To run this software you will need:
 - Junit (http://www.junit.org/)
